@@ -78,3 +78,13 @@ def unzip():
             change_name = unzip.infolist()[0].filename
             os.rename(change_name, file_name[start_count])
             print('{} unziped file'.format(start_count))
+            
+#Gera a database e insere as tables
+def create_database():
+    database = sqlite3.connect('database_name')
+    empresa_dataframe = pd.read_csv(file_name[0], encoding="ISO8859-1", sep=',')
+    empresa_dataframe.to_sql(name = 'empresa', con=database)
+    estabelecimento_dataframe = pd.read_csv(file_name[1], encoding="ISO8859-1", sep=',')
+    estabelecimento_dataframe.to_sql(name= 'estabelecimento', con=database)
+    socios_dataframe = pd.read_csv(file_name[2], encoding="ISO8859-1", sep=',')
+    socios_dataframe.to_sql(name= 'socios', con= database)
