@@ -67,3 +67,14 @@ def download_files():
         os.rename(file_path, zip_name[count])
         count +=1
         print('{} downloaded file'.format(count))
+        
+#Desconpacta os arquivos zip
+def unzip():
+    end_count = 3
+    start_count = 0
+    for start_count in range(end_count):
+        with zipfile.ZipFile(zip_name[start_count],'r') as unzip:
+            unzip.extractall()
+            change_name = unzip.infolist()[0].filename
+            os.rename(change_name, file_name[start_count])
+            print('{} unziped file'.format(start_count))
