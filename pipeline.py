@@ -101,3 +101,14 @@ def dataframe_set_columns():
     socios_dataframe.to_csv(file_name[2])
     print('Columns set at {}'.format(file_name[2]))
     create_database()
+    
+#Fluxo de baixar o arquivo, descompactar, tratar e disponibilizar
+count_flow = 0
+while count_flow == 0:
+    if not file_downloaded_confirm:
+        download_files()
+    elif not file_unziped_confirm:
+        unzip()
+    else:
+        dataframe_set_columns()
+        count_flow = 1
