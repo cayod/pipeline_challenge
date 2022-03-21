@@ -88,3 +88,16 @@ def create_database():
     estabelecimento_dataframe.to_sql(name= 'estabelecimento', con=database)
     socios_dataframe = pd.read_csv(file_name[2], encoding="ISO8859-1", sep=',')
     socios_dataframe.to_sql(name= 'socios', con= database)
+    
+#Pega os dados das colunas para inserir nos csv            
+def dataframe_set_columns():
+    empresa_dataframe = pd.read_csv(file_name[0], encoding="ISO8859-1", names = columns_empresa, sep=';')
+    empresa_dataframe.to_csv(file_name[0])
+    print('Columns set at {}'.format(file_name[0]))
+    estabelecimento_dataframe = pd.read_csv(file_name[1], encoding="ISO8859-1", names = columns_estabelecimento, sep=';')
+    estabelecimento_dataframe.to_csv(file_name[1])
+    print('Columns set at {}'.format(file_name[1]))
+    socios_dataframe = pd.read_csv(file_name[2], encoding="ISO8859-1", names = columns_socio, sep=';')
+    socios_dataframe.to_csv(file_name[2])
+    print('Columns set at {}'.format(file_name[2]))
+    create_database()
