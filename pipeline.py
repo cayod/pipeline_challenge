@@ -20,23 +20,38 @@ link_cnpj = [
         'http://200.152.38.155/CNPJ/K3241.K03200Y0.D20212.EMPRECSV.zip'
     ),
     (
-        'https://www.gov.br/receitafederal/pt-br/assuntos/orientacao-tributaria/cadastros/consultas/arquivos/novolayoutdosdadosabertosdocnpj-dez2021.pdf'
+        'https://www.gov.br/receitafederal/pt-br/assuntos/orientacao-'
+        'tributaria/cadastros/consultas/arquivos/'
+        'novolayoutdosdadosabertosdocnpj-dez2021.pdf'
     )
 ]
 
 #Nome das colunas do arquivo empresa.csv
 columns_empresa = [
-    'CNPJ BÁSICO', 'RAZÃO SOCIAL/NOME EMPRESARIAL', 'NATUREZA JURÍDICA', 'QUALIFICAÇÃO DO RESPONSÁVEL', 'CAPITAL SOCIAL DA EMPRESA', 'PORTE DA EMPRESA', 'ENTE FEDERATIVO RESPONSÁVEL' 
+    'CNPJ BÁSICO', 'RAZÃO SOCIAL/NOME EMPRESARIAL', 'NATUREZA JURÍDICA', 
+    'QUALIFICAÇÃO DO RESPONSÁVEL', 'CAPITAL SOCIAL DA EMPRESA', 
+    'PORTE DA EMPRESA', 'ENTE FEDERATIVO RESPONSÁVEL' 
 ]
 
 #Nome das colunas do arquivo estabelecimento.csv
 columns_estabelecimento = [
-    'CNPJ BÁSICO', 'CNPJ ORDEM', 'CNPJ DV', 'IDENTIFICADOR MATRIZ/FILIAL', 'NOME FANTASIA', 'SITUAÇÃO CADASTRAL', 'DATA SITUAÇÃO CADASTRAL', 'MOTIVO SITUAÇÃO CADASTRAL', 'NOME DA CIDADE NO EXTERIOR', 'PAIS', 'DATA DE INÍCIO ATIVIDADE', 'CNAE FISCAL PRINCIPAL', 'CNAE FISCAL SECUNDÁRIA', 'TIPO DE LOGRADOURO', 'LOGRADOURO', 'NÚMERO', 'COMPLEMENTO', 'BAIRRO', 'CEP', 'UF', 'MUNICÍPIO', 'DDD 1', 'TELEFONE 1', 'DDD 2', 'TELEFONE 2', 'DDD DO FAX', 'FAX', 'CORREIO ELETRÔNICO', 'SITUAÇÃO ESPECIAL', 'DATA DA SITUAÇÃO ESPECIAL'
+    'CNPJ BÁSICO', 'CNPJ ORDEM', 'CNPJ DV', 'IDENTIFICADOR MATRIZ/FILIAL', 
+    'NOME FANTASIA', 'SITUAÇÃO CADASTRAL', 'DATA SITUAÇÃO CADASTRAL', 
+    'MOTIVO SITUAÇÃO CADASTRAL', 'NOME DA CIDADE NO EXTERIOR', 'PAIS', 
+    'DATA DE INÍCIO ATIVIDADE', 'CNAE FISCAL PRINCIPAL', 
+    'CNAE FISCAL SECUNDÁRIA', 'TIPO DE LOGRADOURO', 'LOGRADOURO', 'NÚMERO', 
+    'COMPLEMENTO', 'BAIRRO', 'CEP', 'UF', 'MUNICÍPIO', 'DDD 1', 'TELEFONE 1', 
+    'DDD 2', 'TELEFONE 2', 'DDD DO FAX', 'FAX', 'CORREIO ELETRÔNICO', 
+    'SITUAÇÃO ESPECIAL', 'DATA DA SITUAÇÃO ESPECIAL'
 ]
 
 #Nome das colunas do arquivo socio.csv
 columns_socio = [
-    'CNPJ BÁSICO', 'IDENTIFICADOR DE SÓCIO', 'NOME DO SÓCIO (NO CASO PF) OU RAZÃO SOCIAL (NO CASO PJ)', 'CNPJ/CPF DO SÓCIO', 'QUALIFICAÇÃO DO SÓCIO', 'DATA DE ENTRADA SOCIEDADE', 'PAIS', 'REPRESENTANTE LEGAL', 'NOME DO REPRESENTANTE', 'QUALIFICAÇÃO DO REPRESENTANTE LEGAL', 'FAIXA ETÁRIA'
+    'CNPJ BÁSICO', 'IDENTIFICADOR DE SÓCIO', 
+    'NOME DO SÓCIO (NO CASO PF) OU RAZÃO SOCIAL (NO CASO PJ)', 
+    'CNPJ/CPF DO SÓCIO', 'QUALIFICAÇÃO DO SÓCIO', 'DATA DE ENTRADA SOCIEDADE', 
+    'PAIS', 'REPRESENTANTE LEGAL', 'NOME DO REPRESENTANTE', 
+    'QUALIFICAÇÃO DO REPRESENTANTE LEGAL', 'FAIXA ETÁRIA'
 ]
 
 #Nomes para os zip
@@ -47,14 +62,19 @@ zip_name = [
 file_name = [
     "1-empresa.csv", "2-estabelecimento.csv", "3-socio.csv", "4-colunas.csv"]
 
-#Confirma se os dados estão baixados no repostitório
-file_downloaded_confirm = os.path.exists(zip_name[0]) and os.path.exists(zip_name[1]) and os.path.exists(zip_name[2]) and os.path.exists(zip_name[3])
-
-#Confirma se os dados estão descompactados
-file_unziped_confirm = os.path.exists(file_name[0]) and os.path.exists(file_name[1]) and os.path.exists(file_name[2])
-
 #Nome da database
 database_name = 'cnpj.db'
+
+#Confirma se os dados estão baixados no repostitório
+file_downloaded_confirm = os.path.exists(
+    zip_name[0]) and os.path.exists(
+        zip_name[1]) and os.path.exists(
+            zip_name[2]) and os.path.exists(zip_name[3])
+
+#Confirma se os dados estão descompactados
+file_unziped_confirm = os.path.exists(
+    file_name[0]) and os.path.exists(
+        file_name[1]) and os.path.exists(file_name[2])
 
 #Download dos arquivos
 def download_files():
@@ -82,22 +102,29 @@ def unzip():
 #Gera a database e insere as tables
 def create_database():
     database = sqlite3.connect('database_name')
-    empresa_dataframe = pd.read_csv(file_name[0], encoding="ISO8859-1", sep=',')
+    empresa_dataframe = pd.read_csv(
+        file_name[0], encoding="ISO8859-1", sep=',')
     empresa_dataframe.to_sql(name = 'empresa', con=database)
-    estabelecimento_dataframe = pd.read_csv(file_name[1], encoding="ISO8859-1", sep=',')
+    estabelecimento_dataframe = pd.read_csv(
+        file_name[1], encoding="ISO8859-1", sep=',')
     estabelecimento_dataframe.to_sql(name= 'estabelecimento', con=database)
-    socios_dataframe = pd.read_csv(file_name[2], encoding="ISO8859-1", sep=',')
+    socios_dataframe = pd.read_csv(
+        file_name[2], encoding="ISO8859-1", sep=',')
     socios_dataframe.to_sql(name= 'socios', con= database)
     
 #Pega os dados das colunas para inserir nos csv            
 def dataframe_set_columns():
-    empresa_dataframe = pd.read_csv(file_name[0], encoding="ISO8859-1", names = columns_empresa, sep=';')
+    empresa_dataframe = pd.read_csv(
+        file_name[0], encoding="ISO8859-1", names = columns_empresa, sep=';')
     empresa_dataframe.to_csv(file_name[0])
     print('Columns set at {}'.format(file_name[0]))
-    estabelecimento_dataframe = pd.read_csv(file_name[1], encoding="ISO8859-1", names = columns_estabelecimento, sep=';')
+    estabelecimento_dataframe = pd.read_csv(
+        file_name[1], encoding="ISO8859-1", names = columns_estabelecimento, 
+        sep=';')
     estabelecimento_dataframe.to_csv(file_name[1])
     print('Columns set at {}'.format(file_name[1]))
-    socios_dataframe = pd.read_csv(file_name[2], encoding="ISO8859-1", names = columns_socio, sep=';')
+    socios_dataframe = pd.read_csv(
+        file_name[2], encoding="ISO8859-1", names = columns_socio, sep=';')
     socios_dataframe.to_csv(file_name[2])
     print('Columns set at {}'.format(file_name[2]))
     create_database()
@@ -111,4 +138,4 @@ while count_flow == 0:
         unzip()
     else:
         dataframe_set_columns()
-        count_flow = 1
+        count_flow = 1     
