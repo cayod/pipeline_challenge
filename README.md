@@ -31,18 +31,22 @@ c. Conformed -> Dado processado para disponibilização na aplicação.
 (Padronização do tipo do dado, nome de coluna, melhoria do conteúdo);
 d. Aplicação -> Disponibilização no banco de dados.
 
-5. Hospedar o código em um repositório do github utilizando conceitos de Gitflow e
-Commit Semântico
+5. Hospedar o código em um repositório do github utilizando conceitos de 
+Gitflow e Commit Semântico
 
 ### Resolução do Problema: <h3>
 
 O problema foi resolvido por meio de um fluxo em três partes com um laço while:
 
-    1. Identificando a existencia dos arquivos zip no diretório e logo após isso realizando o download dos mesmos por meio de um wget e renomeando o arquivo para deixar em formato padrão.
+    1. Identificando a existencia dos arquivos zip no diretório e logo após 
+    isso realizando o download dos mesmos por meio de um wget e renomeando o 
+    arquivo para deixar em formato padrão.
 
-    2. Realizando a identificação da existencia dos arquivos .zip para realizar o fluxo de descompactar cada um dos arquivos
+    2. Realizando a identificação da existencia dos arquivos .zip para 
+    realizar o fluxo de descompactar cada um dos arquivos
 
-    3. Finalizando com o tratamento dos dados, inserindo as informações das colunas de cada um dos arquivos e gerando um banco de dados para consulta.
+    3. Finalizando com o tratamento dos dados, inserindo as informações das 
+    colunas de cada um dos arquivos e gerando um banco de dados para consulta.
 
 
 ### Tecnologias utilizadas: <h3>
